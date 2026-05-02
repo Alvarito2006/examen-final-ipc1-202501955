@@ -14,6 +14,24 @@ public class Main {
 
         System.out.println();
         playlist.mostrarPlaylist();
+
+        System.out.println();
+        System.out.println("siguiente()");
+        playlist.siguiente();
+
+        System.out.println();
+        System.out.println("siguiente()");
+        playlist.siguiente();
+
+        System.out.println();
+        System.out.println("anterior()");
+        playlist.anterior();
+
+        System.out.println();
+        System.out.println("eliminarActual()");
+        playlist.eliminarActual();
+
+        System.out.println();
+        playlist.mostrarPlaylist();
     }
 }
-

@@ -45,6 +45,81 @@ public class Playlist {
         }
     }
 
+    public Cancion siguiente() {
+        if (actual == null) {
+            System.out.println("No hay canciones en la playlist.");
+            return null;
+        }
+
+        if (actual.getSiguiente() == null) {
+            System.out.println("No hay siguiente cancion. Se mantiene la actual.");
+            actual.getCancion().reproducir();
+            return null;
+        }
+
+        actual = actual.getSiguiente();
+        actual.getCancion().reproducir();
+        return actual.getCancion();
+    }
+
+    public Cancion anterior() {
+        if (actual == null) {
+            System.out.println("No hay canciones en la playlist.");
+            return null;
+        }
+
+        if (actual.getAnterior() == null) {
+            System.out.println("No hay cancion anterior. Se mantiene la actual.");
+            actual.getCancion().reproducir();
+            return null;
+        }
+
+        actual = actual.getAnterior();
+        actual.getCancion().reproducir();
+        return actual.getCancion();
+    }
+
+    public void eliminarActual() {
+        if (actual == null) {
+            System.out.println("No hay una cancion actual para eliminar.");
+            return;
+        }
+
+        NodoDoble nodoEliminado = actual;
+        NodoDoble nodoAnterior = nodoEliminado.getAnterior();
+        NodoDoble nodoSiguiente = nodoEliminado.getSiguiente();
+
+        if (nodoAnterior != null) {
+            nodoAnterior.setSiguiente(nodoSiguiente);
+        } else {
+            cabeza = nodoSiguiente;
+        }
+
+        if (nodoSiguiente != null) {
+            nodoSiguiente.setAnterior(nodoAnterior);
+        } else {
+            cola = nodoAnterior;
+        }
+
+        if (nodoSiguiente != null) {
+            actual = nodoSiguiente;
+        } else {
+            actual = nodoAnterior;
+        }
+
+        nodoEliminado.setAnterior(null);
+        nodoEliminado.setSiguiente(null);
+        tamanio--;
+
+        System.out.println("Cancion eliminada: " + nodoEliminado.getCancion().getTitulo());
+        if (actual != null) {
+            System.out.print("Actual despues de eliminar: ");
+            actual.getCancion().reproducir();
+        } else {
+            System.out.println("La playlist quedo vacia.");
+        }
+    }
+
     public NodoDoble getCabeza() {
         return cabeza;
     }
@@ -77,4 +152,3 @@ public class Playlist {
         this.tamanio = tamanio;
     }
 }
-
